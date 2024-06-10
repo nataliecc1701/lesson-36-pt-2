@@ -34,13 +34,15 @@ router.get("/:id", async function (req, res, next) {
 router.post("/", async function (req, res, next) {
   try {
     const validation = jsonschema.validate(req.body, bookSchema)
-    if (validation.valid) {
+    console.log(validation);
+    if (validation.errors.length === 0) {
       const book = await Book.create(req.body);
       return res.status(201).json({ book });
     }
     else {
-      let listOfErrors = result.errors.map(e => e.stack)
-      let err = new ExpressError()
+      let listOfErrors = validation.errors.map(e => e.stack)
+      let err = new ExpressError(listOfErrors, 400)
+      return next(err)
     }
   } catch (err) {
     return next(err);
