@@ -1,0 +1,93 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "default": {},
+    "title": "Root Schema",
+    "required": [
+        "isbn",
+        "amazon_url",
+        "author",
+        "language",
+        "pages:",
+        "publisher",
+        "title",
+        "year"
+    ],
+    "properties": {
+        "isbn": {
+            "type": "string",
+            "default": "",
+            "title": "The isbn Schema",
+            "examples": [
+                "978-0061673733"
+            ]
+        },
+        "amazon_url": {
+            "type": "string",
+            "default": "",
+            "title": "The amazon_url Schema",
+            "examples": [
+                "https://www.amazon.com/Zen-Art-Motorcycle-Maintenance-Inquiry/dp/0061673730/ref=asc_df_0061673730"
+            ]
+        },
+        "author": {
+            "type": "string",
+            "default": "",
+            "title": "The author Schema",
+            "examples": [
+                "Robert M Pirsig"
+            ]
+        },
+        "language": {
+            "type": "string",
+            "default": "",
+            "title": "The language Schema",
+            "examples": [
+                "english"
+            ]
+        },
+        "pages:": {
+            "type": "integer",
+            "default": 0,
+            "title": "The pages: Schema",
+            "examples": [
+                448
+            ]
+        },
+        "publisher": {
+            "type": "string",
+            "default": "",
+            "title": "The publisher Schema",
+            "examples": [
+                "Mariner Books Classics"
+            ]
+        },
+        "title": {
+            "type": "string",
+            "default": "",
+            "title": "The title Schema",
+            "examples": [
+                "Zen and the Art of Motorcycle Maintenance: An Inquiry into Values"
+            ]
+        },
+        "year": {
+            "type": "integer",
+            "default": 0,
+            "title": "The year Schema",
+            "examples": [
+                2008
+            ]
+        }
+    },
+    "examples": [{
+        "isbn": "978-0061673733",
+        "amazon_url": "https://www.amazon.com/Zen-Art-Motorcycle-Maintenance-Inquiry/dp/0061673730/ref=asc_df_0061673730",
+        "author": "Robert M Pirsig",
+        "language": "english",
+        "pages:": 448,
+        "publisher": "Mariner Books Classics",
+        "title": "Zen and the Art of Motorcycle Maintenance: An Inquiry into Values",
+        "year": 2008
+    }]
+}
