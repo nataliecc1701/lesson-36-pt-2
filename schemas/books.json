@@ -9,7 +9,7 @@
         "amazon_url",
         "author",
         "language",
-        "pages:",
+        "pages",
         "publisher",
         "title",
         "year"
@@ -47,10 +47,10 @@
                 "english"
             ]
         },
-        "pages:": {
+        "pages": {
             "type": "integer",
             "default": 0,
-            "title": "The pages: Schema",
+            "title": "The pages Schema",
             "examples": [
                 448
             ]
