@@ -99,12 +99,48 @@ describe("POST /books/", function () {
             'title', 'year'];
         
         for (p of reqdProps) {
-            const b3 = { ...b2 }
-            delete b3[p]
+            const b3 = { ...b2 };
+            delete b3[p];
             
             const response = await request(app).post("/books").send(b3);
             
-            expect(response.status).toEqual(400)
+            expect(response.status).toEqual(400);
+            expect(response.body.message[0]).toEqual(`${errStr} "${p}"`);
+        }
+    })
+})
+
+describe("PUT /books", function () {
+    test("changes a book", async function() {
+        const b3 = {...b1};
+        b3.title = "teest book";
+        const response = await request(app).put(`/books/${b3.isbn}`).send(b3);
+        
+        expect(response.status).toEqual(200);
+        expect(response.body.book).toEqual(b3);
+    })
+    
+    test("404s on bad ISBN", async function() {
+        const response = await request(app).put(`/books/${b2.isbn}`).send(b2);
+        
+        expect(response.status).toEqual(404);
+        expect(response.body.message).toEqual(`There is no book with an isbn '${b2.isbn}`)
+    })
+    
+    test("error 400 on missing property", async function() {
+        const errStr = 'instance requires property';
+        const reqdProps = ['amazon_url', 'author', 'language', 'pages', 'publisher',
+            'title', 'year'];
+        
+        for (p of reqdProps) {
+            const b3 = {...b1};
+            delete b3[p];
+            const isbn = b3.isbn;
+            delete b3.isbn;
+            
+            const response = await request(app).put(`/books/${isbn}`).send(b3)
+            
+            expect(response.status).toEqual(400);
             expect(response.body.message[0]).toEqual(`${errStr} "${p}"`)
         }
     })
