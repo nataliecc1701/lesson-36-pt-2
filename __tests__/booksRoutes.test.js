@@ -54,5 +54,6 @@ describe("GET /books/:isbn", function () {
         const response = await request(app).get("/books/0");
         
         expect(response.status).toEqual(404)
+        expect(response.body.message).toEqual(`There is no book with an isbn '0'`)
     })
 })
