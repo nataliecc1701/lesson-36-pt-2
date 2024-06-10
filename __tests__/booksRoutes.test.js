@@ -35,11 +35,24 @@ describe("GET /books/", function () {
     })
 })
 
+describe("404 handling", function () {
+    test("returns a 404 with bad route", async function () {
+        const response = await request(app).get("/badRouteDoNotUse");
+        
+        expect(response.status).toEqual(404);
+    })
+})
+
 describe("GET /books/:isbn", function () {
     test("gets one book", async function() {
         const response = await request(app).get(`/books/${b1.isbn}`);
         
         expect(response.body).toHaveProperty("book");
         expect(response.body.book).toEqual(b1);
+    })
+    test("404s on invalid isbn", async function() {
+        const response = await request(app).get("/books/0");
+        
+        expect(response.status).toEqual(404)
     })
 })
