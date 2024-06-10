@@ -165,3 +165,24 @@ describe("PUT /books", function () {
         expect(response.body.message[0]).toEqual('instance.year is not of a type(s) integer')
     })
 })
+
+describe ("DELETE /books/isbn", function () {
+    test("deletes a book", async function () {
+        const r1 = await request(app).delete(`/books/${b1.isbn}`);
+        
+        expect(r1.status).toEqual(200);
+        expect(r1.body).toEqual({ message: "Book deleted" });
+        
+        const r2 = await request(app).get('/books');
+        
+        expect(r2.status).toEqual(200);
+        expect(r2.body.books.length).toEqual(0);
+    })
+    
+    test("404s on bad isbn", async function () {
+        const response = await request(app).delete(`/books/${b2.isbn}`)
+        
+        expect(response.status).toEqual(404)
+        expect(response.body.message).toEqual(`There is no book with an isbn '${b2.isbn}`)
+    })
+})
