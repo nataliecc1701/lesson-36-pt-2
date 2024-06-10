@@ -153,4 +153,15 @@ describe("PUT /books", function () {
             expect(response.body.message[0]).toEqual(`${errStr} "${p}"`)
         }
     })
+    
+    test("error 400 on misformatted property", async function () {
+        const b3 = {...b1};
+        b3.year = "MCMLXXII";
+        const isbn = b3.isbn;
+        delete b3.isbn;
+        const response = await request(app).put(`/books/${isbn}`).send(b3);
+        
+        expect(response.status).toEqual(400)
+        expect(response.body.message[0]).toEqual('instance.year is not of a type(s) integer')
+    })
 })
